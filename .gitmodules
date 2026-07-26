@@ -1,0 +1,3 @@
+[submodule "template-bump"]
+	path = template-bump
+	url = git@github.com:ArtveFlinaInBupt/bupt.git
