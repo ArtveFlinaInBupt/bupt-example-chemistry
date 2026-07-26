@@ -13,7 +13,7 @@
 
   = 前言
 
-  《大邮化学集》是大邮集集模板的简单使用例一例。源码可以在
+  《大邮化学集》是#link("https://github.com/ArtveFlinaInBupt/bupt/")[大邮集集模板]的简单使用例一例。源码可以在 GitHub #link("https://github.com/FA555/bupt-example-chemistry", `ArtveFlinaInBupt/bupt-example-chemistry`) 获取。
 
   你也许会发现本文件的编译非常慢——性能瓶颈似乎在 Typst `alchemist` / `cetz` 包，而不是大邮集集模板。
 
@@ -28,7 +28,6 @@
   我后续会在大邮集集模板中追加稍详细的使用文档。
 
   #h(1fr); #text(font: font.mono)[fa\_555]
-
 
   #attention-page[献给我自己]
 ]
