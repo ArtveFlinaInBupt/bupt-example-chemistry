@@ -1,0 +1,73 @@
+name: Build & Optional Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@v5
+        with:
+          typst-version: 0.15.1
+
+      - name: Install Fontist
+        uses: fontist/setup-fontist@v2
+        continue-on-error: true
+
+      - name: Install Fontist Fonts
+        continue-on-error: true
+        run: |
+          mkdir -p ~/.local/share/fonts/fontist/fonts
+          fontist config set fonts_path ~/.local/share/fonts/fontist/fonts
+          fontist install "STIX Two Math"
+          fontist install "STIX Two Text"
+          fontist install "Fira Code"
+
+      - name: Manually Install Fonts (Source Han {Sans, Serif} SC, Font Awesome)
+        run: |
+          curl -L https://github.com/adobe-fonts/source-han-serif/releases/download/2.003R/09_SourceHanSerifSC.zip -o SourceHanSerifSC.zip
+          curl -L https://github.com/adobe-fonts/source-han-sans/releases/download/2.005R/09_SourceHanSansSC.zip -o SourceHanSansSC.zip
+          curl -L https://github.com/FortAwesome/Font-Awesome/releases/download/7.1.0/fontawesome-free-7.1.0-desktop.zip -o fontawesome-free-7.1.0-desktop.zip
+          unzip -q SourceHanSerifSC.zip -d ~/.local/share/fonts/source-han-serif
+          unzip -q SourceHanSansSC.zip -d ~/.local/share/fonts/source-han-sans
+          unzip fontawesome-free-7.1.0-desktop.zip -d fontawesome
+          mkdir -p ~/.local/share/fonts/fontawesome
+          cp fontawesome/fontawesome-free-7.1.0-desktop/otfs/*.otf ~/.local/share/fonts/fontawesome/
+          fc-cache -fv
+
+      - name: Check timezone
+        run: |
+          echo "Current time: $(date)"
+          echo "Timezone: $(date +%Z), $TZ"
+
+      - name: Check typst & fonts
+        run: |
+          typst fonts
+
+      - name: Build
+        run: |
+          typst compile main.typ
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: typst-output
+          path: |
+            main.pdf
