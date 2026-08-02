@@ -1,7 +1,7 @@
 /// 引用大邮集集模板
-#import "/template-bump/common.typ" as bump
-#import "/template-bump/model.typ": model-factory
-#import "/template-bump/util.typ": *
+#import "/bupt-template/common.typ" as bupt
+#import "/bupt-template/model.typ": model-factory
+#import "/bupt-template/util.typ": *
 
 /// 引用外部包
 #import "@preview/alchemist:0.2.0": *
@@ -10,13 +10,13 @@
 #import "/template/config.typ": *
 
 /// 将配置注入模版；需要的配置参见 config 的内容
-#let set-document-metadata = bump.set-document-metadata
-#let indented-par = bump.indented-par.with(config)
-#let show-foreword = bump.show-foreword.with(config)
-#let show-outline = bump.show-outline.with(config)
-#let show-body-start = bump.show-body-start.with(config)
-#let show-body-file = bump.show-body-file.with(config)
-#let show-appendix = bump.show-appendix.with(config)
+#let set-document-metadata = bupt.set-document-metadata
+#let indented-par = bupt.indented-par.with(config)
+#let show-foreword = bupt.show-foreword.with(config)
+#let show-outline = bupt.show-outline.with(config)
+#let show-body-start = bupt.show-body-start.with(config)
+#let show-body-file = bupt.show-body-file.with(config)
+#let show-appendix = bupt.show-appendix.with(config)
 #let m = model-factory(config)
 
 /// m 中有各种工具函数。调用时可以以 (m.p)(args) 形式；或在此 let p = m.p 之后以 p(args) 形式调用。
