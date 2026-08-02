@@ -49,7 +49,7 @@
 
   = 字体清单
 
-  您可参考本仓库的 CI 文件 `.github/workflows/main.yaml`，`/template/config.typ` 中的字体配置（如下）：
+  可参考 `/template/config.typ` 中的字体配置（如下，不包含 Font Awesome），或本仓库的 CI 文件 `.github/workflows/main.yaml` 中的字体安装相关代码。
 
   #raw(block: true, lang: "typ", {
     let code = read("template/config.typ")
@@ -74,8 +74,12 @@
     [西文衬线体],
     [SIL OFL 1.1],
 
+    [STIX Two Math],
+    [数学字体],
+    [SIL OFL 1.1],
+
     [Fira Code],
-    [等宽编程字体],
+    [等宽字体],
     [SIL OFL 1.1],
 
     [Font Awesome Free],
